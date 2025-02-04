@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     document.getElementById('saveGifBtn').addEventListener('click', saveGif);
-
     async function saveGif() {
         const gif = new GIF({
             workers: 2,
@@ -55,7 +54,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const frames = Array.from(document.getElementsByClassName("frame-img"));
 
         for (const frameCanvas of frames) {
-            gif.addFrame(frameCanvas, { delay: 200 });
+            const ctx = frameCanvas.getContext("2d", { willReadFrequently: true });
+            gif.addFrame(ctx, { delay: 200 });
         }
 
         gif.on('finished', function(blob) {
