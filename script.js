@@ -48,7 +48,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     async function saveGif() {
         const gif = new GIF({
             workers: 2,
-            quality: 10
+            quality: 10,
+            width: document.getElementsByClassName("frame-img")[0].width,
+            height: document.getElementsByClassName("frame-img")[0].height,
         });
 
         const frames = Array.from(document.getElementsByClassName("frame-img"));
