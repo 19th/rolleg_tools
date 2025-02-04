@@ -20,34 +20,27 @@ document.addEventListener("DOMContentLoaded", async function () {
             frameCanvas.style.height = `${height}px`;
         });
     });
-    
-    /* Save all frames as images */
-    document.getElementById('saveAllFramesBtn').addEventListener('click', saveAllFrames);
 
-    function saveGif() {
-        const gif = new GIF({
-            workers: 2,
-            quality: 10
+    document.getElementById('saveTimelineBtn').addEventListener('click', saveTimeline);
+
+    function saveTimeline() {
+        const timelineCanvas = document.createElement('canvas');
+        const ctx = timelineCanvas.getContext('2d');
+        const imageSize = parseInt(imageSizeInput.value);
+        const aspectRatio = video.videoWidth / video.videoHeight;
+        const frameWidth = parseInt(imageSize * aspectRatio);
+        const frameHeight = parseInt(imageSize);
+
+        const frames = Array.from(document.getElementsByClassName("frame-img"));
+        timelineCanvas.width = frameWidth * frames.length;
+        timelineCanvas.height = frameHeight;
+
+        frames.forEach((frameCanvas, index) => {
+            ctx.drawImage(frameCanvas, index * frameWidth, 0, frameWidth, frameHeight);
         });
 
-        videoFrames.forEach((frameCanvas) => {
-            gif.addFrame(frameCanvas, { delay: 200 });
-        });
-
-        gif.on('finished', function(blob) {
-            saveAs(blob, 'animation.gif');
-        });
-
-        gif.render();
-    }
-    function saveAllFrames() {
-        const allFrames = document.querySelectorAll('.frame-img');
-        allFrames.forEach((frame, index) => {
-            html2canvas(frame).then(canvas => {
-                canvas.toBlob(blob => {
-                    saveAs(blob, `frame_${index + 1}.png`);
-                });
-            });
+        timelineCanvas.toBlob(blob => {
+            saveAs(blob, 'timeline.png');
         });
     }
 
