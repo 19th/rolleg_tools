@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     /* Save all frames as images */
     document.getElementById('saveAllFramesBtn').addEventListener('click', saveAllFrames);
-    document.getElementById('saveGifBtn').addEventListener('click', saveGif);
 
     function saveGif() {
         const gif = new GIF({
