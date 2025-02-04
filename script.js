@@ -44,6 +44,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
+    document.getElementById('saveGifBtn').addEventListener('click', saveGif);
+
+    async function saveGif() {
+        const gif = new GIF({
+            workers: 2,
+            quality: 10
+        });
+
+        const frames = Array.from(document.getElementsByClassName("frame-img"));
+
+        for (const frameCanvas of frames) {
+            gif.addFrame(frameCanvas, { delay: 200 });
+        }
+
+        gif.on('finished', function(blob) {
+            saveAs(blob, 'animation.gif');
+        });
+
+        gif.render();
+    }
+
     let bodyPoseModel;
     let videoFrames = [];
 
