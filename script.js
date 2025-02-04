@@ -110,8 +110,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = Math.min(video.videoWidth, 800);
+        canvas.height = parseInt((canvas.width / video.videoWidth) * video.videoHeight);
 
         for (let i = 0; i < frameCount; i++) {
             video.currentTime = (i / frameCount) * video.duration;
