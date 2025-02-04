@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 frameCanvas.remove();
                 saveButton.remove();
                 deleteButton.remove();
+                frameContainer.remove();
             });
 
             // Append buttons to the frame container
