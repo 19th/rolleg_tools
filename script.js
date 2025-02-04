@@ -56,13 +56,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const frames = Array.from(document.getElementsByClassName("frame-img"));
 
         for (const frameCanvas of frames) {
-            const ctx = frameCanvas.getContext('2d', { willReadFrequently: true });
-            const imageData = ctx.getImageData(0, 0, frameCanvas.width, frameCanvas.height);
-            gif.addFrame(imageData, { delay: 200 });
+            gif.addFrame(frameCanvas, { delay: 200 });
         }
 
         gif.on('finished', function(blob) {
-            saveAs(blob, 'animation.gif');
+            window.open(URL.createObjectURL(blob));
         });
 
         gif.render();
